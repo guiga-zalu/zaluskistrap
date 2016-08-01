@@ -1,9 +1,8 @@
 $Css = {
 	set : function(element, css){
 		var x;
-		for(x in css){
+		for(x in css)
 			element.style.setProperty(x, css[x]);
-		}
 		return 1;
 	},
 	apply : function(css, ele){
@@ -11,17 +10,14 @@ $Css = {
 		var _ = css.indexOf('{');
 		var selector = css.slice(0, _);
 		var element = ele.querySelectorAll(selector);
-		var prop = css.slice(_ + 1)
-						.replace('}', '')
-						.split(';');
+		var prop = ((css.slice(_ + 1)).replace('}', '')).split(';');
 		prop.pop();
-		for(var x = prop.length, y; x > 0; x--){
+		for(var y, x = 0; x < prop.length; x++){
 			prop[i] = prop[i].split(':');
 		}
-		for(x = element.length; x > 0; x--){
-			for(y = prop.length; y > 0; y--){
+		for(x = 0; x < element.length; x++){
+			for(y = 0; y < prop.length; y++)
 				element[x].style.setProperty(prop[y][0], prop[y][1]);
-			}
 		}
 		return 1;
 	},
