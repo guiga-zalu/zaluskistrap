@@ -44,33 +44,31 @@ $Usfull = {
 			'width' : '100%',
 			'height' : '100%'
 		};
-		if(!element){
-			element = this.create('div');
-		}
+		if(!element) element = this.create('div');
 		$Css.set(element, style);
 		return element;
 	},
 	alert : function(msg, size, css, callback){
-		var d = document.createElement('div');
-		document.body.appendChild(d);
+		var mask = this.overlay();
+		var d = mask.createElement('div');
+		mask.appendChild(d);
 		$Css.set(d, {
-			top:'0',
-			left:'0',
+			top:0,
+			left:0,
 			position:'absolute',
 			margin:'auto',
 			width:size[0] || '80%',
 			height:size[1] || '80%'
 		});
-		if(css){
-			$Css.set(d, css);
-		}
+		if(css) $Css.set(d, css);
 		d.innerHTML = msg;
-		var btn = document.createElement('button');
+		var btn = d.createElement('button');
 		d.appendChild(btn);
 		btn.innetHTML = 'Ok';
 		btn.addEventListener('click', function(){
 			callback();
-			document.body.removeChild(d);
+			mask.removeChild(d);
+			document.body.removeChild(mask);
 		});
 	}
 };
