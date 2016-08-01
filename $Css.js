@@ -26,11 +26,43 @@ $Css = {
 		return 1;
 	},
 	contrast : function(hex){
-		var c = this.toHexArr(hex);
-		for(var x = 0; x < 3; x++){
-			c[i] = -parseInt(c[i], 16);
-			c[i] += 256;
+		var c = this.toArr(hex);
+		for(var x = 0; x < 3; x++)
+			c[i] = 256 - c[i];
+		return c;
+	},
+	toArr : function(color){
+		color = color.replace(' ', '');
+		var c = [];
+		if(color[0] == '#'){
+			if(color.length == 4){
+				for(var i = 1; i < 4; i++)
+					c[i - 1] = parseInt(color[i], 16);
+			}else{
+				for(var i = 1; i < 4; i++)
+					c[i - 1] = parseInt(color[i] + color[i * 2], 16);
+			}
+		}else if(color[0] == 'r'){
+			var v = [color.indexOf('('), color.indexOf(')')];
+			c = color.slice(v[0] - 1, v[1] - v[0]).split(',');
+			for(var i = 0; i < 3; i++)
+				c[i] = +c[i];
 		}
-		return '#' + c[0] + c[1] + c[2];
+		return c;
+	},
+	toHex : function(color){
+		var c = this.toArr(color);
+		for(var x = 0; x < 3; x++)
+			c[x] = c[x].toString(16);
+		return '#' + c.join();
+	},
+	toggle : function(ele, prop){
+		var arg = arguments;
+		if(!(ele && prop && arg[2] && arg[3])){return false;}
+		for(var x = 2; x < arg.length + 1; x++){
+			if(ele.style.getProperty(prop) == arg[j]){
+				ele.style.setProperty(prop, (x == arg.length) ? arg[2] : arg[x + 1]);
+			}
+		}
 	}
 };
