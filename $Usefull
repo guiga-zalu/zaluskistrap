@@ -1,0 +1,25 @@
+$Usfull = {
+	alert:function(msg, size, css, callback){
+		var d = document.createElement('div');
+		document.body.appendChild(d);
+		$Css.set(d, {
+			top:'0',
+			left:'0',
+			position:'absolute',
+			margin:'auto',
+			width:size[0] || '80%',
+			height:size[1] || '80%'
+		});
+		if(css){
+			$Css.set(d, css);
+		}
+		d.innerHTML = msg;
+		var btn = document.createElement('button');
+		d.appendChild(btn);
+		btn.innetHTML = 'Ok';
+		btn.addEventListener('click', function(){
+			
+		});
+		callback();
+	}
+};
