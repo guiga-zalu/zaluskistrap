@@ -1,7 +1,7 @@
 $Array = {
 	each : function(arr, call){
 		var ret = [];
-		for(var i = 0; i < arr.length; i++)
+		for(let i in arr)
 			ret.push(call(arr[i]));
 		return ret;
 	},
@@ -21,7 +21,7 @@ $String = {
 	},
 	indexes : function(string, arr){
 		var ret = [];
-		for(var i = 0; i < arr.length; i++)
+		for(let i in arr)
 			ret.push(string[ arr[i] ]);
 		return ret.length ? ret : 0;
 	}
