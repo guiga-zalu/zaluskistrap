@@ -6,3 +6,6 @@
 2016 08 01 20:38 (BR) Updated Css Errors.
 2016 08 01 20:44 (BR) Updated Usefull.
 2016 08 01 20:53 (BR) Created Constructor.
+2016 08 05 12:44 (BR) Updated Usefull, Css & Constructor.
+2016 08 05 12:48 (BR) Updated Object.
+2016 08 05 12:55 (BR) Updated Usefull.
