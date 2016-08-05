@@ -12,18 +12,18 @@ $Css = {
 		var element = ele.querySelectorAll(selector);
 		var prop = ((css.slice(_ + 1)).replace('}', '')).split(';');
 		prop.pop();
-		for(var y, x = 0; x < prop.length; x++){
+		for(let x in prop){
 			prop[i] = prop[i].split(':');
 		}
-		for(x = 0; x < element.length; x++){
-			for(y = 0; y < prop.length; y++)
+		for(var x in element){
+			for(let y in prop)
 				element[x].style.setProperty(prop[y][0], prop[y][1]);
 		}
 		return 1;
 	},
 	contrast : function(hex){
 		var c = this.toArr(hex);
-		for(var x = 0; x < 3; x++)
+		for(let x = 0; x < 3; x++)
 			c[i] = 256 - c[i];
 		return c;
 	},
@@ -48,7 +48,7 @@ $Css = {
 	},
 	toHex : function(color){
 		var c = this.toArr(color);
-		for(var x = 0; x < 3; x++)
+		for(let x in c)
 			c[x] = c[x].toString(16);
 		return '#' + c.join();
 	},
