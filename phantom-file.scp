@@ -9,11 +9,14 @@ Escola:
 	Jogo Transito
 ResultadoX:
 	ResultadoX
-	USE Maua
+-	USE Maua
 	Festa Ribeirao
 	Psicografia Publica
+	Akopian
+	CMUC
 Projetos:
 	turbo-guacamole
+	ResultadoX
 	Robocode
 	Jogo:
 		Aprender Blender
