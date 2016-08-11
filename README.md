@@ -10,3 +10,5 @@
 2016 08 05 12:48 (BR) Updated Object.
 2016 08 05 12:55 (BR) Updated Usefull.
 2016 08 05 14:00 (BR) Created Math.
+2016 08 11 12:51 (BR) Created Canvas.
+2016 08 11 12:56 (BR) Closed Canvas.
