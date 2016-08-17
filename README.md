@@ -12,3 +12,4 @@
 2016 08 05 14:00 (BR) Created Math.
 2016 08 11 12:51 (BR) Created Canvas.
 2016 08 11 12:56 (BR) Closed Canvas.
+2016 08 16 21:03 (BR) Updated Canvas.
