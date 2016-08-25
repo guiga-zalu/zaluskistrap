@@ -1,29 +1,30 @@
-class $Canvas {
+$Canvas = {
 	that : this,
-	create(element, mode){
+	create : function(element, mode){
 		if(element && parent){
-			this.element = element;
-			return this.element;
+			that.element = element;
+			return that.element;
 		}
 		element = element || document.body;
-		this.element = document.createElement('canvas');
-		element.appendChild(this.element);
-		return this.element;
+		that.element = document.createElement('canvas');
+		element.appendChild(that.element);
+		return that.element;
 	},
-	contextSet(type){
+	contextSet : function(type){
 		type = type || '2d';
-		this.context = this.element.getContext(type);
-		return this.context;
+		that.context = that.element.getContext(type);
+		return that.context;
 	},
-	get imgData(){
-		var imgDatas = [];
-		var save = function(x, y, cx, cy){
+	imgData : {
+		imgDatas : [],
+		save : function(x, y, cx, cy){
 			this.imgDatas.push(that.context.createImageData(x, y, cx, cy));
-		}
-		var use = function(index, x, y, cx, cy){
+		},
+		use : function(index, x, y, cx, cy){
 			that.context.drawImage(this.imgDatas[index], x, y, cx, cy);
+		},
+		toDataURI : function(index){
+			return this.imgDatas[index].toDataURL();
 		}
-		var toDataURI = (index) => this.imgDatas[index].toDataURL();
-		return {imgDatas: imgDatas, save: save, use: use, toDataURI: toDataURI};
 	}
 }
