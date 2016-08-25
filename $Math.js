@@ -8,7 +8,10 @@ $Math = {
       return a * this.per(a-1);
     }
   },
-  div : (a, b = 1) => (a-a%b)/b,
+  div : function(a, b){
+    b = b || 1;
+    return (a-a%b)/b;
+  }
   sum : function(inicial, final, valor, razao){
     var ret = (typeof razao).toLowerCase() == 'string' ? '' : 0;
     inicial = $Usefull.exist(inicial, 0);
