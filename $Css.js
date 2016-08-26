@@ -54,8 +54,7 @@ $Css = {
 	},
 	toRGB : function(color, alpha){
 		var _color = [color[0], color[1], color[2]];
-		var ret = 'rgb' + (alpha ? 'a' : '') + '(' + _color.join(',');
-		ret += (alpha ? ',' + 1/color[3] : '') + ')';
+		var ret = `rgb${alpha ? 'a' : ''}(${_color.join(',')}${alpha ? ',' + color[3]/255 : ''})`;
 		return ret;
 	},
 	toggle : function(ele, prop){
