@@ -1,4 +1,4 @@
-$Usfull = {
+$Usefull = {
 	exists : (arg, def) => (arg === undefined ? arg : def),
 	request : function(url, method, async, mode, callback){
 		method = method || 'GET';
