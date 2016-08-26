@@ -28,3 +28,6 @@ $Canvas = {
 		}
 	}
 }
+$Canvas.new = function(){
+	return Object.create($Canvas);
+}
