@@ -14,3 +14,7 @@
 2016 08 11 12:56 (BR) Closed Canvas.
 2016 08 16 21:03 (BR) Updated Canvas.
 2016 08 25 18:50 (BR) Updated Math. Re-Updated Canvas back to JS object (not constructor).
+2016 08 26 08:15 (BR) Updated Css.
+2016 08 26 08:37 (BR) Updated Usefull.
+2016 08 26 08:40 (BR) Created _Conversor.
+2016 08 26 09:13 (BR) Closed _Conversor.
