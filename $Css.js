@@ -52,6 +52,12 @@ $Css = {
 			c[x] = c[x].toString(16);
 		return '#' + c.join();
 	},
+	toRGB : function(color, alpha){
+		var _color = [color[0], color[1], color[2]];
+		var ret = 'rgb' + (alpha ? 'a' : '') + '(' + _color.join(',');
+		ret += (alpha ? ',' + 1/color[3] : '') + ')';
+		return ret;
+	},
 	toggle : function(ele, prop){
 		var arg = arguments;
 		if(!(ele && prop && arg[2] && arg[3])){return false;}
@@ -60,5 +66,15 @@ $Css = {
 				ele.style.setProperty(prop, (x == arg.length) ? arg[2] : arg[x + 1]);
 			}
 		}
+	},
+	randomColor : function(){
+		var ret = [];
+		ret.length = 4;
+		for(let x = 0; x < 4; x++;)
+			ret[x] = Math.floor(Math.random() * 256);
+		return ret;
+	},
+	random : function(){
+		return this.toRGB(this.randomColor(), true);
 	}
 };
