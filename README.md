@@ -19,3 +19,4 @@
 2016 08 26 08:40 (BR) Created _Conversor.
 2016 08 26 09:13 (BR) Closed _Conversor.
 2016 08 26 09:37 (BR) Updated Css.
+2016 08 26 11:20 (BR) Added new constructor to Canvas.
