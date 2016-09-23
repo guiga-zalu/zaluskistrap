@@ -1,5 +1,10 @@
 $Usefull = {
-	exists : (arg, def) => (arg === undefined ? arg : def),
+	test : function(obj, type){
+		return obj.constructor.toString().toLowerCase().indexOf(type.toLowerCase()) > -1;
+	},
+	exists : function(arg, def){
+		return arg === undefined ? arg : def;
+	},
 	request : function(url, method, async, mode, callback){
 		method = method || 'GET';
 		async = (async == undefined) ? true : async;
