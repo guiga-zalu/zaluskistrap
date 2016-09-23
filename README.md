@@ -22,3 +22,6 @@
 2016 08 26 11:20 (BR) Added new constructor to Canvas.
 2016 09 22 20:22 (BR) Added init reference creator to Canvas.
 2016 09 22 21:30 (BR) Added test to Usefull.
+2016 09 23 12:19 (BR) Updated Usefull & Constructor.
+2016 09 23 12:21 (BR) Updated Canvas.
+2016 09 23 12:22 (BR) Added init reference creator to Constructor.
