@@ -1,52 +1,54 @@
 $Math = {
   per : function(a){
     a = +a;
-    a = this.div(a);
+    a = Math.floor(a);
     if(a < 2){
       return 1;
     }else{
       return a * this.per(a-1);
     }
   },
-  div : function(a, b){
-    b = b || 1;
-    return (a-a%b)/b;
-  }
   sum : function(inicial, final, valor, razao){
-    var ret = (typeof razao).toLowerCase() == 'string' ? '' : 0;
+    var ret = (typeof valor).toLowerCase() == 'string' ? '' : 0;
     inicial = $Usefull.exist(inicial, 0);
     razao = razao || 1;
-    for(; inicial <= final; inicial += razao)
-      ret += valor;
+    if($Usefull.test(inicial, 'array')){
+      var adicional = final == undefined ? 0 : final;
+      for(var x in inicial) ret += inicial[x] + adicional;
+    }else{
+      for(; inicial <= final; inicial += razao) ret += valor;
+    }
     return ret;
   },
   prod : function(inicial, final, valor, razao){
     var ret = 1;
     inicial = $Usefull.exist(inicial, 0);
     razao = razao || 1;
-    for(; inicial <= final; inicial += razao)
-      ret *= valor;
+    if($Usefull.test(inicial, 'array')){
+      var adicional = final == undefined ? 0 : final;
+      for(var x in inicial) ret *= inicial[x] + adicional;
+    }else{
+      for(; inicial <= final; inicial += razao) ret *= valor;
+    }
     return ret;
   },
-  coProd : function(inicial, final, valores){
+  coProd : function(valores, inicial, final){
     var ret = 1;
     inicial = $Usefull.exist(inicial, 0);
     final = $Usefull.exist(final, valores.length - 1);
-    for(let x = inicial; x <= final; x++)
-      ret *= 1 - valores[x];
+    for(let x = inicial; x <= final; x++) ret *= 1 - valores[x];
     return ret;
   },
   fromTo : function(){
     b = b || 10;
     c = c || 36;
     a = (typeof a).toLowerCase() == 'string' ? a : a.toString();
-    let ret = parseFloat(a, b);
+    var ret = parseFloat(a, b);
     return ret.toString(c);
   },
   random : function(min, max){
     return Math.floor(Math.random() * (max - min + 1)) + min;
   },
-  randomChar : (min, max) => String.fromCharCode( this.random(min, max) ),
   randomString : function(min, max, char){
     var charCode = char;
     var m = [];
@@ -81,3 +83,5 @@ $Math = {
     return ret.join();
   }
 };
+$Math.div = (a, b = 1) => (a - a % b) / b;
+$Math.randomChar = (min, max) => String.fromCharCode( this.random(min, max) );
