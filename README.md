@@ -16,8 +16,8 @@
 2016 08 25 18:50 (BR) Updated Math. Re-Updated Canvas back to JS object (not constructor).
 2016 08 26 08:15 (BR) Updated Css.
 2016 08 26 08:37 (BR) Updated Usefull.
-2016 08 26 08:40 (BR) Created _Conversor.
-2016 08 26 09:13 (BR) Closed _Conversor.
+2016 08 26 08:40 (BR) Created _Conversor_.
+2016 08 26 09:13 (BR) Closed _Conversor_.
 2016 08 26 09:37 (BR) Updated Css.
 2016 08 26 11:20 (BR) Added new constructor to Canvas.
 2016 09 22 20:22 (BR) Added init reference creator to Canvas.
@@ -25,3 +25,4 @@
 2016 09 23 12:19 (BR) Updated Usefull & Constructor.
 2016 09 23 12:21 (BR) Updated Canvas.
 2016 09 23 12:22 (BR) Added init reference creator to Constructor.
+2016 10 05 13:16 (BR) Updated Math.
