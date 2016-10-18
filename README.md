@@ -26,3 +26,6 @@
 2016 09 23 12:21 (BR) Updated Canvas.
 2016 09 23 12:22 (BR) Added init reference creator to Constructor.
 2016 10 05 13:16 (BR) Updated Math.
+2016 10 18 20:10 (BR) Updated Usefull.
+2016 10 18 20:15 (BR) Crated Simple Ajax.
+2016 10 18 21:47 (BR) Closed Simple Ajax.
