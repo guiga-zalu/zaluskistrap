@@ -1,10 +1,4 @@
-$Usefull = {
-	test : function(obj, type){
-		return obj.constructor.toString().toLowerCase().indexOf(type.toLowerCase()) > -1;
-	},
-	exists : function(arg, def){
-		return arg === undefined ? arg : def;
-	},
+var $Usefull = {
 	request : function(url, method, async, mode, callback){
 		method = method || 'GET';
 		async = (async == undefined) ? true : async;
@@ -32,3 +26,5 @@ $Usefull = {
 		this.request(url, 'GET', true, 1, split);
 	}
 };
+$Usefull.test = (obj, type) => obj.constructor.toString().toLowerCase().indexOf(type.toLowerCase()) > -1;
+$Usefull.exists = (arg, def) => arg === undefined ? arg : def;
