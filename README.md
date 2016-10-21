@@ -29,3 +29,5 @@
 2016 10 18 20:10 (BR) Updated Usefull.
 2016 10 18 20:15 (BR) Crated Simple Ajax.
 2016 10 18 21:47 (BR) Closed Simple Ajax.
+2016 10 20 21:34 (BR) Renamed "$Simple Ajax" to "Simple Ajax"
+2016 10 20 22:15 (BR) Added to *timeout* and *lastStatus* Simple Ajax.
