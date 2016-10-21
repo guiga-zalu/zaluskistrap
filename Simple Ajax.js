@@ -1,4 +1,4 @@
-function $SAjax(url, method, data, async, mode, callback){
+function SAjax(url, method, data){
 	this.location = url;
 	this.method = method;
 	this.data = data;
@@ -12,7 +12,8 @@ function $SAjax(url, method, data, async, mode, callback){
 		for(var i in list) list[ i ].call(null, code, response);
 	};
 	this.open = function(){
-		var data = this.method == 'GET' ? '?' + this.data : '';
+		this.parseData();
+		var data = this.method == 'GET' ? '?' + this.parsedData : '';
 		this.request.open(
 			this.location,
 			this.method + data,
@@ -22,7 +23,8 @@ function $SAjax(url, method, data, async, mode, callback){
 		);
 	};
 	this.send = function(){
-		this.method == 'GET' ? this.request.send() : this.request.send(data);
+		this.parseData();
+		this.method == 'GET' ? this.request.send() : this.request.send( this.parsedData );
 		this.call('send');
 	};
 	this.cancel = () => this.request.abort();
@@ -80,6 +82,44 @@ function $SAjax(url, method, data, async, mode, callback){
 			this.request.readyState,
 			response
 		);
+		this.lastState = this.request.readyState;
+	};
+	this.parseData = function(){
+		var data = this.data;
+		var ret = '';
+		if(data.constructor.toString().toLowerCase().indexOf('string') > -1 && isNaN(data)){
+			for(var x in data){
+				ret += encodeURI(x) + '=' + encodeURI(data[x]) + '&';
+			}
+		}
+		this.parsedData = ret || data;
+	};
+	this.timeout = {
+		/*
+		-persistence
+		1:	Cancel on error
+		2:	Ignore errors
+		3:	Log errors
+		*/
+		init : function(){
+			if(this.persistence < 2 && this.lastState != 200) return;
+			else if(this.persistence == 3) this.addListener('error', function(e){
+				console.error(e);
+			});
+			this.send();
+		}
+	};
+	this.setTimeout = function(time, persistence, call_after, call_before){
+		this.timeout.persistence = persistence || 1;
+		if(call_after) this.timeout.call_after = call_after;
+		else this.timeout.call_after = null;
+		if(call_before) this.timeout.call_before = call_before;
+		else this.timeout.call_before = null;
+		this.timeout['var'] = setTimeout(time, this.timeout.init);
+	};
+	this.clearTimeout = function(){
+		clearTimeout(this.timeout['var']);
+		this.timeout['var'] = null;
 	};
 }
 /*Type:
