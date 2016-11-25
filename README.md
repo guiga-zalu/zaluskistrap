@@ -32,3 +32,4 @@
 2016 10 20 21:34 (BR) Renamed "$Simple Ajax" to "Simple Ajax"
 2016 10 20 22:15 (BR) Added to *timeout* and *lastStatus* Simple Ajax.
 2016 11 23 13:03 (BR) Added _ImageData_ proprierts to Usefull.
+2016 11 25 15:59 (BR) Updated Math.
