@@ -93,20 +93,27 @@ $Math = {
     return ret;
   },
   divisors : function(int){
-    var ret = [], auxiliar = [];
-    var primos = this.cousin(Math.floor(int / 2));
+    var ret = [];
+    var primos = this.cousin(Math.floor(int));
     for(var i = 0, j, k; i < primos.length; i++){
+      console.log('i:'+i);
+      auxiliar = false;
       j = primos[i];
+      console.log('j:'+j);
       if(!(int % j)){
-        auxiliar.push(j);
+        k = 0;
         while(!(int % j)){
+          console.log('int:'+int);
+          k++;
           int /= j;
+          console.log('k:'+k);
         }
+        ret.push([ j, k ])
       }
-      if(auxiliar.length) ret.push([ auxiliar, k]);
     }
     return ret.length ? ret : false;
   }
 };
-$Math.div = (a, b = 1) => (a - a % b) / b;
+$Math.div = (a, b = 1) => Math.floor(a / b);
 $Math.randomChar = (min, max) => String.fromCharCode( this.random(min, max) );
+$Math.floor = (a, b = 100) => Math.floor(a * b) / b;
