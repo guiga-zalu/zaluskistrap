@@ -33,3 +33,4 @@
 2016 10 20 22:15 (BR) Added to *timeout* and *lastStatus* Simple Ajax.
 2016 11 23 13:03 (BR) Added _ImageData_ proprierts to Usefull.
 2016 11 25 15:59 (BR) Updated Math.
+2016 11 25 17:01 (BR) Updated Math.
