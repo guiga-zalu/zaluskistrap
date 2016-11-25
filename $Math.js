@@ -81,6 +81,31 @@ $Math = {
     for(let i in ret)
       ret[i] = this.randomChar(1, gama);
     return ret.join();
+  },
+  isCousin : function(int){
+    for(var i = 2; i < int / 2; i++) if(!(int % i)) return false;
+    return true;
+  },
+  cousin : function(max){
+    max = max == undefined ? 100 : Math.floor(max);
+    var ret = [];
+    for(var i = 2; i < max; i++) if(this.isCousin(i)) ret.push(i);
+    return ret;
+  },
+  divisors : function(int){
+    var ret = [], auxiliar = [];
+    var primos = this.cousin(Math.floor(int / 2));
+    for(var i = 0, j, k; i < primos.length; i++){
+      j = primos[i];
+      if(!(int % j)){
+        auxiliar.push(j);
+        while(!(int % j)){
+          int /= j;
+        }
+      }
+      if(auxiliar.length) ret.push([ auxiliar, k]);
+    }
+    return ret.length ? ret : false;
   }
 };
 $Math.div = (a, b = 1) => (a - a % b) / b;
