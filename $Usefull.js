@@ -30,7 +30,7 @@ $Usefull.test = (obj, type) => obj.constructor.toString().toLowerCase().indexOf(
 $Usefull.exists = (arg, def) => arg === undefined ? arg : def;
 ImageData.prototype.constructor.coords = (x, y) => (this.width * y + x) << 2;
 ImageData.prototype.constructor.remove = function remove(r, g, b){
-	for(var j = this.data.length, i = 0; i < 0; i += 4){
+	for(var j = this.data.length, i = 0; i < j; i += 4){
 		if(this.data[i] == r && this.data[i + 1] == g && this.data[i + 2] == b) this.data[i + 4] = 0;
 	}
 }
