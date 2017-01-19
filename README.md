@@ -34,3 +34,4 @@
 2016 11 23 13:03 (BR) Added _ImageData_ proprierts to Usefull.
 2016 11 25 15:59 (BR) Updated Math.
 2016 11 25 17:01 (BR) Updated Math.
+2017 01 19 14:06 (BR) Re-Created Canvas how a constructor (not object).
