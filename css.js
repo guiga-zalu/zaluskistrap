@@ -1,7 +1,6 @@
 $Css = {
 	set : function(element, css){
-		var x;
-		for(x in css)
+		for(let x in css)
 			element.style.setProperty(x, css[x]);
 		return 1;
 	},
@@ -23,7 +22,7 @@ $Css = {
 	},
 	contrast : function(hex){
 		var c = this.toArr(hex);
-		for(let x = 0; x < 3; x++)
+		for(var x = 0; x < 3; x++)
 			c[i] = 256 - c[i];
 		return c;
 	},
@@ -69,11 +68,11 @@ $Css = {
 	randomColor : function(){
 		var ret = [];
 		ret.length = 4;
-		for(let x = 0; x < 4; x++;)
+		for(var x = 0; x < 4; x++)
 			ret[x] = Math.floor(Math.random() * 256);
 		return ret;
 	},
 	random : function(){
-		return this.toRGB(this.randomColor(), true);
+		return $Css.toRGB($Css.randomColor(), true);
 	}
 };
