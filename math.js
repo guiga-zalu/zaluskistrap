@@ -117,5 +117,5 @@ window['$Math'] = $Math = {
 	spread : (original, ammount) => $Math.random(original - ammount, ammount * 2)
 };
 $Math.div = (a, b = 1) => Math.floor(a / b);
-$Math.randomChar = (min, max) => String.fromCharCode( this.random(min, max) );
-$Math.floor = (a, b = 100) => Math.floor(a * b) / b;
+$Math.randomChar = (min = 1, max = 255) => String.fromCharCode( this.random(min, max) );
+$Math.floor = (double, tax = 2) => +double.toPrecision(tax);
