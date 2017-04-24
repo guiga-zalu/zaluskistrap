@@ -1,4 +1,4 @@
-function Canvas(ele, context, width, height){
+function Canvas(ele, context, width, height, color){
 	var isCanvas = ele && ele.tagName.toLowerCase() == 'canvas';
 	if(!ele || !isCanvas){
 		var _ele = ele || document.body;
@@ -12,6 +12,7 @@ function Canvas(ele, context, width, height){
 		if(height) this.height = ele.height = height;
 		else this.height = ele.height = width;
 	}
+	if(color) ele.style.background = this.color = color;
 	this.multiApply = function(method){
 		var haveMethod = (method in this);
 		if(!haveMethod) method = 'context';
@@ -29,22 +30,26 @@ function Canvas(ele, context, width, height){
 			}
 		}
 	};
-/*
+	/*
 Use:
-x.multiApply('context', ['beginPath'], ['moveTo', 0, 0], ['lineTo', 100, 0], ['lineTo', 100, 100], ['closePath']);
-x.multiApply('context', 'beginPath', ['moveTo', 0, 0], ['lineTo', 100, 0], ['lineTo', 100, 100], 'closePath');
-x.multiApply(['beginPath'], ['moveTo', 0, 0], ['lineTo', 100, 0], ['lineTo', 100, 100], ['closePath']);
-x.multiApply('beginPath', ['moveTo', 0, 0], ['lineTo', 100, 0], ['lineTo', 100, 100], 'closePath');
+x.multiApply('context', ['beginPath'], ['moveTo', 0, 0], ['lineTo', 100, 0], ['lineTo', 100, 100],
+ ['closePath']);
+x.multiApply('context', 'beginPath', ['moveTo', 0, 0], ['lineTo', 100, 0], ['lineTo', 100, 100],
+ 'closePath');
+x.multiApply(['beginPath'], ['moveTo', 0, 0], ['lineTo', 100, 0], ['lineTo', 100, 100],
+ ['closePath']);
+x.multiApply('beginPath', ['moveTo', 0, 0], ['lineTo', 100, 0], ['lineTo', 100, 100],
+ 'closePath');
 */
 	this.imgData = {
 		saves : [],
-		save : (x, y, cx, cy) => this.saves.push(
-			this.parent.context.createImageData(x, y, cx, cy)
+		save : (x = 0, y = 0, cx = this.width, cy = this.height) => this.imgData.saves.push(
+			this.context.createImageData(x, y, cx, cy)
 		),
-		use : (index, x, y, cx, cy) => this.parent.context.drawImage(
-			this.saves[index], x, y, cx, cy
+		use : (index = 0, x = 0, y = 0, cx, cy) => this.context.drawImage(
+			this.imgData.saves[index], x, y, cx, cy
 		),
-		toDataURI : (index) => this.saves[index].toDataURL()
+		toDataURI : (index) => this.imgData.saves[index].toDataURL()
 	};
 	this.init = function(){
 //By: Mik,
