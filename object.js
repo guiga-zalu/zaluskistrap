@@ -39,6 +39,12 @@ $Itnerator = {
 		}
 		ret.sortByCount = () => ret.sort((a, b) => a.count - b.count);
 		return ret;
+	},
+	indexes : function(a, b){
+		var c = [];
+		for(var i = 0; i < b.length; i++)
+			c.push(a[ b[ i ] ]);
+		return c;
 	}
 };
 $Itnerator.search = $Itnerator.indexOf = $Itnerator.getPos;
@@ -94,20 +100,14 @@ $Array = {
 };
 $Array.randomize = (arr) => arr.sort(() => 0.5 - Math.random());
 $String = {
-	searchAll : function(a, str, c){
+	searchAll : function(string, str, c){
 		c = (c == undefined) ? 0 : c;
-		var b = [];
-		while(a.search(str, c) > -1){
-			b.push(a.search(str, c));
+		var ret = [];
+		while(string.search(str, c) > -1){
+			ret.push(string.search(str, c));
 			c += str.length;
 		}
-		return b.length ? b : -1;
-	},
-	indexes : function(a, b){
-		var c = [];
-		for(var i = 0; i < b.length; i++)
-			c.push(a[ b[ i ] ]);
-		return c;
+		return ret.length ? ret : -1;
 	},
 	split : function(str, b){
 		if(isNaN(b)){//Em desenvolvimento
@@ -119,6 +119,41 @@ $String = {
 			return ret;
 		}
 	},
+	format : function(str, mode){
+		mode = mode.trim().toLowerCase().replace('case', '');
+		var ret;
+		switch(mode){
+			case 'upper':
+				ret = str.toUpperCase(); break;
+			case 'lower':
+				ret = str.toLowerCase(); break;
+			case 'random':
+				ret = $String.toRandomCase(str); break;
+			case 'capitalize':
+			case 'capital':
+				ret = $String.toCapitalCase(str); break;
+			default: break;
+		}
+		return ret;
+	},
+	toRandomCase : function(str){
+		var ret = [];
+		for(var i = str.length; i > -1; i--) ret.push(str[i]['to' + $Math.randomChoice('Low', 'Upp') + 'erCase']());
+		return ret.reverse().join('');
+	},
+	toCapitalCase : function(str, mode){
+		if(mode){
+			var arr = str.split(' ');
+			for(var i = str.length, ret = []; i > -1; i--){
+				ret.push( $String.toCapitalCase(arr[i]) );
+			}
+			return ret.reverse().join(' ');
+		}else{
+			str = str[0].toUpperCase() + str.slice(1, -1).toLowerCase();
+		}
+	},
+	capitalize : $String.toCapitalCase.apply(this, arguments),
+	//to?Case : function(){},
 	multiply : function(a, b){/* Lixo em Alfa.Beta*/
 		var len = Math.max(a.length, b.length),
 			ret = [];
