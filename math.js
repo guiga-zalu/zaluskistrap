@@ -114,7 +114,8 @@ window['$Math'] = $Math = {
 		}
 		return ret;
 	},
-	spread : (original, ammount) => $Math.random(original - ammount, ammount * 2)
+	spread : (original, ammount) => $Math.random(original - ammount, ammount * 2),
+	randomChoice : () => arguments[ $Math.random(0, arguments.length) ]
 };
 $Math.div = (a, b = 1) => Math.floor(a / b);
 $Math.randomChar = (min = 1, max = 255) => String.fromCharCode( this.random(min, max) );
