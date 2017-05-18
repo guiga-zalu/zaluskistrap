@@ -83,8 +83,7 @@ window['$Math'] = $Math = {
 			default:
 				gama = 128; break;
 		}
-		for(let i in ret)
-			ret[i] = $Math.randomChar(1, gama);
+		for(var i in ret) ret[i] = $Math.randomChar(1, gama);
 		return ret.join();
 	},
 	isCousin : function(int){
@@ -94,7 +93,9 @@ window['$Math'] = $Math = {
 		return true;
 	},
 	cousin : (max = 100) => {
-		for(var ret = [], i = 2; i < max; i++) if($Math.isCousin(i)) ret.push(i);
+		for(var ret = [], i = 2; i < max; i++){
+			if($Math.isCousin(i)) ret.push(i);
+		}
 		return ret;
 	},
 	divisors : function(int){
