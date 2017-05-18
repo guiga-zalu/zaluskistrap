@@ -19,7 +19,7 @@ window['$Math'] = $Math = {
 		return ret;*/
 	},
 	prod : (inicial = 1, final = 5, func) => {
-		for(var ret = 1; i = inicial; i <= final; i++){
+		for(var ret = 1, i = inicial; i <= final; i++){
 			if(func.isArray()) ret *= func[i];
 			else if(func.isGenerator()) ret *= func.next(i);
 			else ret *= func(i);
