@@ -47,7 +47,6 @@ $Itnerator = {
 		return c;
 	}
 };
-$Itnerator.search = $Itnerator.indexOf = $Itnerator.getPos;
 $Array = {
 	join : function(array, array2){
 		for(var ret = [], lenArray = array2.length, i = 0; i < array.length; i++){
@@ -118,7 +117,6 @@ $String = {
 			str = str[0].toUpperCase() + str.slice(1, -1).toLowerCase();
 		}
 	},
-	capitalize : $String.toCapitalCase.apply(this, arguments),
 	//to?Case : function(){},
 	match : function(string, match, anyOccurrence){
 		//match is String!
@@ -158,7 +156,6 @@ $String = {
 		}
 		return vala * valb;
 	},
-	multiplyChar : () => $String.times.apply(null, arguments),
 	multiply : function(stra, strb){
 		var lena = stra.length
 		  , lenb = strb.length
@@ -180,6 +177,11 @@ $String = {
 };
 $String.multiply.MAX = 0;
 //256 for ASCII
+
+//Aliases:
+$Itnerator.search = $Itnerator.indexOf = $Itnerator.getPos;
+$String.capitalize = () => $String.toCapitalCase.apply(this, arguments);
+$String.multiplyChar = () => $String.times.apply(null, arguments);
 
 for(let i in $Itnerator)
 	$Array[i] = $String[i] = $Itnerator[i];
