@@ -57,41 +57,7 @@ $Array = {
 		ret[ ret.length - 1 ] = '';
 		return ret.join('');
 	},
-	/*similarityCountValues = function(arr, order){/* Lerdo *-/
-		order = +order || 0;
-		var ret = [{value: arr[i], count: 1}];
-		var subArrayLen = arr[0].length;
-		for(var i = 0, j, k, l, isEqual; i < arr.length; i++){
-		//i: itinera 'arr'
-		//isEqual: testa se 'arr[i]' é igual a 'ret[k]'
-			for(j = 0; j < subArrayLen; j++){
-			//j: itinera 'arr[i]'
-				for(k = 0; k < ret.length; k++){
-				//k: itnera 'ret'
-					for(l = 0, isEqual = true; l < subArrayLen; l++){
-					//l: itnera 'ret[k]'
-					//m: 'ret[k].value'
-						m = ret[k].value;
-						if(arr[i][j] != m[l]){//O Teste Derradeiro!
-							isEqual = false;
-							break;
-						}
-					}
-					if(isEqual) break;
-				}
-				if(isEqual) break;
-			}
-			if(isEqual)
-			if(j > -1){
-				ret[j].count++;
-			}else{
-				ret.push({value: arr[i], count: 1});
-				ret.sort((a, b) => a.value - b.value);
-			}
-		}
-		ret.sortByCount = () => ret.sort((a, b) => a.count - b.count);
-		return ret;
-	},*/
+/*similarityCountValues = function(arr, order){/* Lerdo *-/order = +order || 0;var ret = [{value: arr[i], count: 1}];var subArrayLen = arr[0].length;for(var i = 0, j, k, l, isEqual; i < arr.length; i++){//i: itinera 'arr'//isEqual: testa se 'arr[i]' é igual a 'ret[k]'for(j = 0; j < subArrayLen; j++){//j: itinera 'arr[i]'for(k = 0; k < ret.length; k++){//k: itnera 'ret'for(l = 0, isEqual = true; l < subArrayLen; l++){//l: itnera 'ret[k]'//m: 'ret[k].value'm = ret[k].value;if(arr[i][j] != m[l]){//O Teste Derradeiro!isEqual = false;break;}}if(isEqual) break;}if(isEqual) break;}if(isEqual)if(j > -1){ret[j].count++;}else{ret.push({value: arr[i], count: 1});ret.sort((a, b) => a.value - b.value);}}ret.sortByCount = () => ret.sort((a, b) => a.count - b.count);return ret;},*/
 	similarity : (arr, order = 2) => {
 		for(var ret = [], i = 0, l = arr.length; i < l; i++)
 			ret[i] = isNaN(arr[i]) ? 0 : Math.floor( (arr[i] + 1) / order ) * order - 1;
@@ -154,22 +120,61 @@ $String = {
 	},
 	capitalize : $String.toCapitalCase.apply(this, arguments),
 	//to?Case : function(){},
-	multiply : function(a, b){/* Lixo em Alfa.Beta*/
-		var len = Math.max(a.length, b.length),
-			ret = [];
-		if($String.multiply.MAX){
-			for(var i = 0; i < len; i++){
-				ret[i] = String.fromCharCode(
-					((a.charCodeAt(i) || 1) * (b.charCodeAt(i) || 1)) % $String.multiply.MAX
-				);
-			}
-		}else{
-			for(var i = 0; i < len; i++){
-				ret[i] = String.fromCharCode(
-					(a.charCodeAt(i) || 1) * (b.charCodeAt(i) || 1)
-				);
+	match : function(string, match, anyOccurrence){
+		//match is String!
+		//anyOccurrence is Boolean!
+		
+		var len = match.length
+		  , testResult = 0
+		  , maxResult = 1
+		  , i
+		  , j
+		  ;
+		
+		//perform a normal test
+		if(string.indexOf(match) > -1)
+			testResult = 1;
+		
+		//any other tests (i guess)
+			//oiioytobi, ioy
+		for(i = len - 1; i > 0; i--){
+			for(j = len - i, pass = false; j > 0; j--){
+				//the portion of match String that have been tested
+				maxResult += i - j;
+				testResult += string.indexOf( match.slice(i, j) ) > -1 ? i - j : 0;
 			}
 		}
+		if(anyOccurrence){
+		}
+		return testResult / maxResult;
+	},
+	times : function(a, b){
+		var vala = a.charCodeAt(0)
+		  , valb = b.charCodeAt(0)
+		  ;
+		if($String.multiply.MAX){
+			vala %= $String.multiply.MAX;
+			valb %= $String.multiply.MAX;
+		}
+		return vala * valb;
+	},
+	multiplyChar : () => $String.times.apply(null, arguments),
+	multiply : function(stra, strb){
+		var lena = stra.length
+		  , lenb = strb.length
+		  , ret = []
+		  , i = 0
+		  , j = 0
+		  ;
+//		ret.length = lena;
+		for(; i < lena; i++){
+			ret[i] = [];
+//			ret[i].length = lenb;
+			
+			for(; j < lenb; j++)
+				ret[i][j] = $String.times(stra[i], strb[j]);
+		}
+		for(i = 0; i < lena; i++) ret = ret.join('');
 		return ret.join('');
 	}
 };
