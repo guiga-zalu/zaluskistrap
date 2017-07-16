@@ -1,4 +1,5 @@
-window['$Math'] = $Math = {
+if($Math !== undefined) $Math = {isEmpty : true};
+$_tmp_$ = {
 	per : (a = 0) => a > 2 ? a * $Math.per(a-1) : 1,
 	sum : (inicial = 1, final = 5, func) => {
 		for(var ret = 0, i = inicial; i <= final; i++){
@@ -118,8 +119,22 @@ window['$Math'] = $Math = {
 	spread : (original, ammount) => $Math.random(original - ammount, ammount * 2),
 	randomChoice : function(){
 		return arguments[ $Math.random(0, arguments.length - 1) ];
+	},
+	length : (val, base = 10) => {
+		if(val === !!val) return 1;
+		else if(val === Number(val)){
+			var str = val.toString(base);
+			return str.length;
+		}
+		else if('length' in val) return val['length'];
+		else return null;
 	}
 };
-$Math.div = (a, b = 1) => Math.floor(a / b);
-$Math.randomChar = (min = 1, max = 255) => String.fromCharCode( this.random(min, max) );
+if($Math.isEmpty()) $Math = $_tmp_$;
+else{
+	for(let x in $_tmp_$) $Math[ x ] = $_tmp_$[ x ];
+}
+
+//$Math.div = (a, b = 1) => Math.floor(a / b);
+$Math.randomChar = (min = 1, max = 255) => String.fromCharCode( $Math.random(min, max) );
 $Math.floor = (double, tax = 2) => +double.toPrecision(tax);
