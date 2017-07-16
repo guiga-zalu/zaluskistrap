@@ -43,3 +43,4 @@
 * 2017 07 06 21:52 (BR) Updated String in Object, adding `match` and correcting `multiply`.
 * 2017 07 16 18:31 (BR) Added `length` to Math.
 * 2017 07 16 19:08 (BR) Added **non-overwrite tech** to Math.
+* 2017 07 16 19:43 (BR) Added `randomID` to Usefull.
