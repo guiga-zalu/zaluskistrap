@@ -1,4 +1,4 @@
-var $Usefull = {
+$Usefull = {
 	request : function(url, method, async, mode, callback){
 		method = method || 'GET';
 		async = (async == undefined) ? true : async;
@@ -24,10 +24,55 @@ var $Usefull = {
 			ele.innerHTML = text;
 		}
 		this.request(url, 'GET', true, 1, split);
+	},
+	test : function(obj, type){
+		if(typeof type !== 'string'){
+			if(obj istanceof type
+			|| obj === type) return true;
+			type = typeof type;
+		}
+		return (
+			obj === type
+			|| obj.constructor.toString().toLowerCase().includes(type.toLowerCase())
+		);
+	},
+	exists : function(arg, _default){
+		return arg === undefined ? _default : arg;
 	}
 };
-$Usefull.test = (obj, type) => obj.constructor.toString().toLowerCase().indexOf(type.toLowerCase()) > -1;
-$Usefull.exists = (arg, def) => arg === undefined ? arg : def;
+$Usefull.defaultValue = $Usefull.exists;
+if($Math){
+//	if('randomChoice' in $Math){
+		$Usefull.randomID = (length = 8, lowerCase = false) => {
+			var i;
+			if(!('chars' in $Usefull.randomID)){
+				var arr = [];
+				//adding only lower case letters
+				//for(i = ; i < ; i++) arr.push(String.fromCharCode(i));
+				for(i = 65; i < 91; i++) arr.push(String.fromCharCode(i));
+				//Only ASCII 4 now
+				//for(i = ; i < ; i++) arr.push(String.fromCharCode(i));
+				arr.push('$');
+				arr.push('_')
+				$Usefull.randomID.chars = arr;
+			}
+			if(!('usedIDs' in $Usefull.randomID)) $Usefull.randomID.usedIDs = {};
+			var ret, joined;
+			do{
+				ret = [];
+				for(i = 0; i < length; i++){
+					ret[i] = $Math.randomChoice.apply(null, $Usefull.randomID.chars);
+					ret[i] = ret[i]['to' + $Math.randomChoice('Lower', 'Upper') + 'Case']();
+				}
+				joined = ret.join('');
+				if(lowerCase) joined = joined.toLowerCase();
+			}while(joined in $Usefull.randomID.ids);
+			$Usefull.randomID.usedIDs[ joined ] = true;
+			return joined;
+		}
+//	}
+}
+
 ImageData.prototype.constructor.coords = (x, y) => (this.width * y + x) << 2;
 ImageData.prototype.constructor.remove = function remove(r, g, b){
 	for(var j = this.data.length, i = 0; i < j; i += 4){
