@@ -44,4 +44,4 @@
 * 2017 07 16 18:31 (BR) Added `length` to Math.
 * 2017 07 16 19:08 (BR) Added **non-overwrite tech** to Math.
 * 2017 07 16 19:43 (BR) Added `randomID` to Usefull.
-* 2017 08 12 15: (BR) Added `includes` `OR` & `AND` to Itnerator in Object.
+* 2017 08 12 15:34 (BR) Added `includes` `OR` & `AND` to Itnerator in Object.
