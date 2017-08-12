@@ -45,8 +45,23 @@ $Itnerator = {
 		for(var i = 0; i < b.length; i++)
 			c.push(a[ b[ i ] ]);
 		return c;
+	},
+	includesOR : (a = []) => {
+		var args = [].slice.call(arguments, 1);
+		for(var i = args.length; i > -1; i--){
+			if( a.includes(args[i]) ) return true;
+		}
+		return false;
+	},
+	includesAND : (a = []) => {
+		var args = [].slice.call(arguments, 1);
+		for(var i = args.length; i > -1; i--){
+			if( !a.includes(args[i]) ) return false;
+		}
+		return true;
 	}
 };
+$Itnerator.includes = $Itnerator.includesOR;
 $Array = {
 	join : function(array, array2){
 		for(var ret = [], lenArray = array2.length, i = 0; i < array.length; i++){
