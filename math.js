@@ -1,4 +1,4 @@
-if($Math !== undefined) $Math = {isEmpty : true};
+$Math = $Math || {};
 $_tmp_$ = {
 	per : (a = 0) => a > 2 ? a * $Math.per(a-1) : 1,
 	sum : (inicial = 1, final = 5, func) => {
@@ -130,11 +130,25 @@ $_tmp_$ = {
 		else return null;
 	}
 };
-if($Math.isEmpty()) $Math = $_tmp_$;
-else{
-	for(let x in $_tmp_$) $Math[ x ] = $_tmp_$[ x ];
+for(let x in $_tmp_$){
+	if($_tmp_$.hasOwnProperty(x)) $Math[ x ] = $_tmp_$[ x ];
 }
-
+Number.prototype.toFloatString = (x = 10, y = 16) => {
+	var x, y, ret, val, i = 0;
+	x = isNaN(x) ? 10 : x;
+	x -= x % 1;
+	y = isNaN(y) ? 16 : y;
+	y -= y % 1;
+	
+	ret = this.toString(x);
+	val = this.toFixed(y);
+	val = val.slice(val.indexOf('.'));
+	if(val) for(ret += '.'; i < y; i++){
+		ret += parseInt(val[i]) / y;
+	}
+	return ret;
+};
+$Math.toFloatString = (x, y) => Number.prototype.toFloatString.call(x, y);
 //$Math.div = (a, b = 1) => Math.floor(a / b);
 $Math.randomChar = (min = 1, max = 255) => String.fromCharCode( $Math.random(min, max) );
 $Math.floor = (double, tax = 2) => +double.toPrecision(tax);
