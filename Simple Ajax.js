@@ -1,17 +1,40 @@
-function SAjax(url, method, data){
-	this.location = url;
-	this.method = method;
-	this.data = data;
-	this.async = true;
-	this.request = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
-	this.set(prop, val){
-		this[ prop ] = val;
-	};
-	this.call = function(prop, code, response){
+class SAjax{
+	constructor(url, method, data){
+		this.location = url;
+		this.method = method;
+		this.data = data;
+		this.async = true;
+		this.request = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+		this.listeners = {
+			'send':[],
+//			'error':[],
+//			'sucess':[]
+			'end':[]
+		};
+		let that = this;
+		this.timeout = {
+			/*
+			-persistence
+			1:	Cancel on error
+			2:	Ignore errors
+			3:	Log errors
+			*/
+			init(){
+				if(that.persistence < 2 && that.lastState != 200) return;
+				else if(that.persistence == 3) that.addListener('error', e => console.error(e));
+				that.send();
+			}
+		};
+		this.request.onreadystatechange = () => {
+			if(this.request.readyState == 4) this.end();
+		};
+	}
+	set(prop, val){ this[ prop ] = val; }
+	call(prop, code, response){
 		var list = this.listeners[ prop ];
 		for(var i in list) list[ i ].call(null, code, response);
-	};
-	this.open = function(){
+	}
+	open(){
 		this.parseData();
 		var data = this.method == 'GET' ? '?' + this.parsedData : '';
 		this.request.open(
@@ -21,28 +44,22 @@ function SAjax(url, method, data){
 			this.user,
 			this.pass
 		);
-	};
-	this.send = function(){
+	}
+	send(){
 		this.parseData();
 		this.method == 'GET' ? this.request.send() : this.request.send( this.parsedData );
 		this.call('send');
-	};
-	this.cancel = () => this.request.abort();
-	this.getHeaders = () => this.request.getAllResponseHeaders();
-	this.getHeader = (name) => this.getResponseHeader(name);
-	this.getSpecificHeaders = function(){
+	}
+	cancel(){ return this.request.abort(); }
+	getHeaders(){ return this.request.getAllResponseHeaders(); }
+	getHeader(name){ return this.getResponseHeader(name); }
+	getSpecificHeaders(){
 		var ret = [], arg = arguments;
 		for(var x in arg) ret.push( this.getResponseHeader( arg[x] ) );
 		return ret;
-	};
-	this.setHeader = (name, value) => this.request.setRequestHeader(name, value);
-	this.listeners = {
-		'send':[],
-//		'error':[],
-//		'sucess':[]
-		'end':[]
-	};
-	this.addListener = function(event, func){
+	}
+	setHeader(name, value){ return this.request.setRequestHeader(name, value); }
+	addListener(event, func){
 		switch(event){
 			case 'readystatechange':
 			case 'loadstart':
@@ -52,12 +69,12 @@ function SAjax(url, method, data){
 			case 'load':
 			case 'timeout':
 			case 'loadend':
-				this.request.addEventListener.apply(null, arguments);
+				this.request.addEventListener(...arguments);
 				break;
 			default: this.listeners[ event ].push(func); return 0;
 		}
-	};
-	this.removeListener = function(event, func){
+	}
+	removeListener(event, func){
 		switch(event){
 			case 'readystatechange':
 			case 'loadstart':
@@ -67,61 +84,39 @@ function SAjax(url, method, data){
 			case 'load':
 			case 'timeout':
 			case 'loadend':
-				this.request.removeEventListener.apply(null, arguments);
+				this.request.removeEventListener(...arguments);
 				break;
 			default:
 				var index = this.listeners[ event ].findIndex(func);
 				this.listeners[ event ][ index ] = null; return 0;
-	};
-	this.request.onreadystatechange = function(){
-		if(this.request.readyState == 4) this.end();
-	};
-	this.end = function(){
+		}
+	}
+	end(){
 		var response = this.mode == 0 ? this.request.responseText : (this.mode == 1 ? this.request.responseXML : this.request);
-		this.call('end',
-			this.request.readyState,
-			response
-		);
+		this.call('end', this.request.readyState, response);
 		this.lastState = this.request.readyState;
 	};
-	this.parseData = function(){
+	parseData(){
 		var data = this.data;
 		var ret = '';
 		if(data.constructor.toString().toLowerCase().indexOf('string') > -1 && isNaN(data)){
-			for(var x in data){
+			for(var x in data)
 				ret += encodeURI(x) + '=' + encodeURI(data[x]) + '&';
-			}
 		}
 		this.parsedData = ret || data;
-	};
-	this.timeout = {
-		/*
-		-persistence
-		1:	Cancel on error
-		2:	Ignore errors
-		3:	Log errors
-		*/
-		init : function(){
-			if(this.persistence < 2 && this.lastState != 200) return;
-			else if(this.persistence == 3) this.addListener('error', function(e){
-				console.error(e);
-			});
-			this.send();
-		}
-	};
-	this.setTimeout = function(time, persistence, call_after, call_before){
+	}
+	setTimeout(time, persistence, call_after = null, call_before = null){
 		this.timeout.persistence = persistence || 1;
-		if(call_after) this.timeout.call_after = call_after;
-		else this.timeout.call_after = null;
-		if(call_before) this.timeout.call_before = call_before;
-		else this.timeout.call_before = null;
-		this.timeout['var'] = setTimeout(time, this.timeout.init);
-	};
-	this.clearTimeout = function(){
-		clearTimeout(this.timeout['var']);
-		this.timeout['var'] = null;
-	};
+		this.timeout.call_after = call_after;
+		this.timeout.call_before = call_before;
+		this.timeout[SAjax.TIMEOUT] = setTimeout(time, this.timeout.init);
+	}
+	clearTimeout(){
+		clearTimeout(this.timeout[SAjax.TIMEOUT]);
+		this.timeout[SAjax.TIMEOUT] = null;
+	}
 }
+SAjax.TIMEOUT = Symbol('timeout');
 /*Type:
 -1
 this.async = true
